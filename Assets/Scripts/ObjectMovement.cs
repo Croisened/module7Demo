@@ -11,11 +11,13 @@ public class ObjectMovement : MonoBehaviour
     public float length = 6f;
     public float height = 6f;
 
+    private Rigidbody rb;
+
 
     //Will run once even before Start
     private void Awake()
     {
-        //Debug.Log("Awake");
+        rb = GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update at the start of the game
@@ -40,13 +42,20 @@ public class ObjectMovement : MonoBehaviour
         if (shouldMove && CheckBoundary(transform.position + (position * speed * Time.deltaTime)))
         {
 
-            //transform.position += (position * speed * Time.deltaTime);
-            transform.Translate(position * speed * Time.deltaTime, Space.World);
+            //transform.Translate(position * speed * Time.deltaTime, Space.World);
+            rb.AddForce(position * speed * Time.deltaTime);
         }
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
+
+
 
         if (fire)
         {
-            Debug.Log("FIRE!");
+
+    
         }
 
 
