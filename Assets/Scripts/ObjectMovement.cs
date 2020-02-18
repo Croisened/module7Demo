@@ -12,12 +12,15 @@ public class ObjectMovement : MonoBehaviour
     public float height = 6f;
 
     private Rigidbody rb;
+    private Renderer mat;
 
 
     //Will run once even before Start
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        mat = GetComponent<Renderer>();
+        
     }
 
     // Start is called before the first frame update at the start of the game
@@ -35,7 +38,7 @@ public class ObjectMovement : MonoBehaviour
         var z = Input.GetAxisRaw("Vertical");
         var fire = Input.GetButtonDown("Fire1");
 
-       
+        
 
         var position = new Vector3(-x, 0, -z);
 
@@ -54,7 +57,8 @@ public class ObjectMovement : MonoBehaviour
 
         if (fire)
         {
-
+            Invoke("DelayedThing",3f);
+            mat.material.color = Color.green;
     
         }
 
@@ -70,7 +74,7 @@ public class ObjectMovement : MonoBehaviour
         float lengthMin = (length / 2) * -1;
         float lengthMax = (length / 2);
 
-        Debug.Log($"widthMin: {widthMin.ToString()} widthMax: {widthMax.ToString()} pos: {_pos.x.ToString()}");
+        //Debug.Log($"widthMin: {widthMin.ToString()} widthMax: {widthMax.ToString()} pos: {_pos.x.ToString()}");
 
         if (_pos.x > widthMin && _pos.x < widthMax)
         {
@@ -81,6 +85,16 @@ public class ObjectMovement : MonoBehaviour
         }
 
         return result;
+    }
+
+
+    private void DelayedThing()
+    {
+        Debug.Log("Delay was called.");
+       
+
+
+
     }
 
 
